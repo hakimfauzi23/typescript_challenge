@@ -32,3 +32,5 @@ cart.addItem({ item_id: 1, price: 30000, quantity: 3 })
 cart.addItem({ item_id: 2, price: 10000, quantity: 1 })               // By default quantity is 1
 cart.addItem({ item_id: 3, price: 5000, quantity: 2 })
 
+
+
