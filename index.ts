@@ -4,33 +4,107 @@ interface IProduct {
     quantity?: number,
 }
 
-class Cart implements IProduct {
+interface RProduct {
     item_id: number;
-    price: number;
-    quantity: number ;
-    
+}
+
+
+class Cart {
+
+    shop_cart: Array<IProduct> = [];
+
     addItem(product: IProduct) {
-        let shop_cart = new Array();
-        let add = shop_cart.push(product.item_id, product.price, product.quantity)
-        console.log(shop_cart)
-    }
-    
-
-
-    removeItem(product : IProduct){
-        let shop_cart = new Array();
-        let rm = delete shop_cart[product.item_id]
+        // let shop_cart = new Array();
+        this.shop_cart.push(product);
+        return this;
     }
 
-    
+
+
+
+
+    removeItem(product: RProduct) {
+
+
+        this.shop_cart = this.shop_cart.filter(function (obj) {
+            return obj.item_id !== product.item_id;
+        });
+        return this;
+    }
+
+    addDiscount() {
+        return this;
+    }
+
+
+    totalItems() {
+        let totalItems: number = this.shop_cart.length;
+        console.log(totalItems);
+        return totalItems
+
+    }
+
+    totalQuantity() {
+
+        let quantity: number = 0;
+
+        this.shop_cart.map(function (item: IProduct) {
+            if (item.quantity === undefined) {
+                quantity += 1;
+            } else {
+                quantity += item.quantity
+            }
+        });
+
+        console.log(quantity)
+        return quantity
+
+    }
+
+
+    totalPrice() {
+
+        let totalPrice: number = 0;
+
+        this.shop_cart.map(function (item: IProduct) {
+            if (item.quantity === undefined) {
+                totalPrice += item.price * 1;
+            } else {
+                totalPrice += item.price * item.quantity
+            }
+        });
+
+        console.log(totalPrice)
+        return totalPrice
+
+    }
+
+    showAll(): void {
+        console.log(this.shop_cart)
+
+    }
+
+    checkOut() {
+
+
+    }
+
+
 
 }
 
 const cart = new Cart()
 
 cart.addItem({ item_id: 1, price: 30000, quantity: 3 })
-cart.addItem({ item_id: 2, price: 10000, quantity: 1 })               // By default quantity is 1
-cart.addItem({ item_id: 3, price: 5000, quantity: 2 })
+    .addItem({ item_id: 2, price: 30000, quantity: 3 })
+// .removeItem({ item_id: 2 })
+cart.totalQuantity()
+cart.totalItems()
+cart.totalPrice()
+cart.showAll()
+// cart.addItem({ item_id: 1, price: 30000, quantity: 3 })
+
+
 
 
 
